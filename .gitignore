@@ -1,0 +1,17 @@
+# environment
+.env
+*.pem
+
+# node / vite
+frontend/node_modules/
+frontend/dist/
+
+# python
+backend/app/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+
+# editor/os
+.DS_Store
+.vscode/
+

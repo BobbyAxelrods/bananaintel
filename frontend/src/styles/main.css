@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-text bg-bg antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+.brutal-border {
+  @apply border-2 border-black shadow-brutal;
+}
+
+.brutal-btn {
+  @apply px-6 py-3 bg-primary text-white font-mono font-bold uppercase tracking-wider border-2 border-black shadow-brutal hover:translate-y-1 hover:shadow-none transition-all active:translate-y-1 active:shadow-none;
+}
+
+.terminal-card {
+  @apply bg-terminal text-white font-mono p-6 border-2 border-gray-dark rounded-lg shadow-2xl;
+}
+
+/* Custom Checkbox */
+.checkbox-wrapper input:checked + div {
+  @apply bg-primary border-black;
+}
+
+.checkbox-wrapper input:checked + div svg {
+  @apply block;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
