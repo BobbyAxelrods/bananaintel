@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Lock, Search, Filter, ExternalLink, Database, Code, FileText } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const HubLayout = ({ initialFilter = 'all' }) => {
   const [intelItems, setIntelItems] = useState([]);

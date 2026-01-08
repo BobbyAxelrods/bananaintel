@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Save, Check, Edit, Trash2, LogOut } from 'lucide-react';
 import Login from './Login';
+import { API_BASE_URL } from '../config';
 
 const AdminDashboard = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));

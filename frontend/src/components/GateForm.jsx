@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, ArrowRight, Check, ShieldCheck } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const GateForm = ({ onSuccess }) => {
   const [email, setEmail] = useState('');

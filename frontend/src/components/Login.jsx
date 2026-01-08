@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Lock } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
