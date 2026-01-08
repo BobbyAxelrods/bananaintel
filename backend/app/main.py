@@ -11,6 +11,7 @@ import bcrypt
 from jose import JWTError, jwt
 from . import models, database
 import logging
+import httpx
 
 # --- Config ---
 SECRET_KEY = os.getenv("SECRET_KEY", "supersecretkey") # CHANGE IN PROD
@@ -156,9 +157,22 @@ def health_check():
     return {"status": "ok"}
 
 @app.post("/api/subscribe")
-def subscribe(subscription: SubscriptionCreate, db: Session = Depends(database.get_db)):
+async def subscribe(subscription: SubscriptionCreate, db: Session = Depends(database.get_db)):
     db_subscriber = db.query(models.Subscriber).filter(models.Subscriber.email == subscription.email).first()
     if db_subscriber:
+        # Trigger webhook for existing users too (e.g. they want the guide again)
+        try:
+            webhook_url = "https://neuralseas.malaysiawest.cloudapp.azure.com/webhook-test/b6a7bb37-de5c-46e0-8394-ad52f5d4f13f"
+            async with httpx.AsyncClient() as client:
+                await client.post(webhook_url, json={
+                    "email": subscription.email,
+                    "lead_magnets": subscription.lead_magnets,
+                    "source": subscription.source,
+                    "is_existing": True
+                })
+        except Exception as e:
+            print(f"Failed to trigger n8n webhook: {e}")
+
         return {
             "success": True, 
             "message": "Welcome back!", 
@@ -176,6 +190,20 @@ def subscribe(subscription: SubscriptionCreate, db: Session = Depends(database.g
     db.add(new_subscriber)
     db.commit()
     db.refresh(new_subscriber)
+
+    # Trigger n8n webhook
+    try:
+        webhook_url = "https://neuralseas.malaysiawest.cloudapp.azure.com/webhook-test/b6a7bb37-de5c-46e0-8394-ad52f5d4f13f"
+        async with httpx.AsyncClient() as client:
+            await client.post(webhook_url, json={
+                "email": subscription.email,
+                "lead_magnets": subscription.lead_magnets,
+                "source": subscription.source,
+                "is_existing": False
+            })
+    except Exception as e:
+        print(f"Failed to trigger n8n webhook: {e}")
+
     return {
         "success": True,
         "message": "Subscription successful",
