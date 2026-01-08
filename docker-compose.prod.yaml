@@ -28,11 +28,19 @@ services:
 
   frontend:
     build: ./frontend
-    ports:
-      - "8080:80"
+    expose:
+      - "80"
     depends_on:
       - backend
     restart: always
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: always
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+
 
 volumes:
   postgres_data:
