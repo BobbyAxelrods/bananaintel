@@ -26,7 +26,7 @@ const GateForm = ({ onSuccess }) => {
     // Simulate API call
     // Change api url to real url 
     try {
-      const response = await fetch('http://localhost:8000/api/subscribe', {
+      const response = await fetch(`${API_BASE_URL}/api/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -20,7 +20,7 @@ const HubLayout = ({ initialFilter = 'all' }) => {
 
   const fetchIntel = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/intel');
+      const response = await fetch(`${API_BASE_URL}/api/intel`);
       const data = await response.json();
       setIntelItems(data);
     } catch (error) {

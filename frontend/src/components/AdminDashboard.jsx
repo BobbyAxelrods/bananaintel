@@ -26,7 +26,7 @@ const AdminDashboard = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/intel');
+      const response = await fetch(`${API_BASE_URL}/api/intel`);
       const data = await response.json();
       setItems(data);
     } catch (err) {
@@ -100,8 +100,8 @@ const AdminDashboard = () => {
     setSuccess(false);
 
     const url = isEditing 
-      ? `http://localhost:8000/api/intel/${editingId}`
-      : 'http://localhost:8000/api/intel';
+      ? `${API_BASE_URL}/api/intel/${editingId}`
+      : `${API_BASE_URL}/api/intel`;
     
     const method = isEditing ? 'PUT' : 'POST';
 

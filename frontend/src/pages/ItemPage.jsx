@@ -10,7 +10,7 @@ const ItemPage = ({ itemId }) => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/intel/${itemId}`);
+        const res = await fetch(`${API_BASE_URL}/api/intel/${itemId}`);
         const data = await res.json();
         setItem(data);
       } catch (e) {
