@@ -160,41 +160,18 @@ def health_check():
 async def subscribe(subscription: SubscriptionCreate, db: Session = Depends(database.get_db)):
     db_subscriber = db.query(models.Subscriber).filter(models.Subscriber.email == subscription.email).first()
     if db_subscriber:
-        # Trigger Billionmail directly
+        # Trigger n8n webhook for existing users too
         try:
-            # Direct Billionmail Integration
-            billionmail_url = "https://mail.imbanana.cc/api/batch_mail/api/send"
-            api_key = "70fc846479d2df2652ac65c420846dc9f45a5534f71ef9ea3b8c5111407fdb33"
-            
-            # Simple Welcome Email
-            email_content = """
-            <html>
-                <body style="font-family: Arial, sans-serif;">
-                    <h2>Welcome to Banana Intel! 🍌</h2>
-                    <p>You have successfully subscribed to our intelligence feed.</p>
-                    <p>Stay tuned for updates.</p>
-                </body>
-            </html>
-            """
-            
-            payload = {
-                "recipient": subscription.email,
-                "subject": "Welcome to Banana Intel",
-                "html": email_content,
-                "sender": "admin@imbanana.cc"
-            }
-            
-            headers = {
-                "X-API-Key": api_key,
-                "Content-Type": "application/json"
-            }
-
+            webhook_url = "https://neuralseas.malaysiawest.cloudapp.azure.com/webhook/b6a7bb37-de5c-46e0-8394-ad52f5d4f13f"
             async with httpx.AsyncClient() as client:
-                response = await client.post(billionmail_url, json=payload, headers=headers)
-                print(f"Billionmail Response: {response.status_code} - {response.text}")
-
+                await client.post(webhook_url, json={
+                    "email": subscription.email,
+                    "lead_magnets": subscription.lead_magnets,
+                    "source": subscription.source,
+                    "is_existing": True
+                })
         except Exception as e:
-            print(f"Failed to send email via Billionmail: {e}")
+            print(f"Failed to trigger n8n webhook: {e}")
 
         return {
             "success": True, 
@@ -214,41 +191,18 @@ async def subscribe(subscription: SubscriptionCreate, db: Session = Depends(data
     db.commit()
     db.refresh(new_subscriber)
 
-    # Trigger Billionmail directly
+    # Trigger n8n webhook
     try:
-        # Direct Billionmail Integration
-        billionmail_url = "https://mail.imbanana.cc/api/batch_mail/api/send"
-        api_key = "70fc846479d2df2652ac65c420846dc9f45a5534f71ef9ea3b8c5111407fdb33"
-        
-        # Simple Welcome Email
-        email_content = """
-        <html>
-            <body style="font-family: Arial, sans-serif;">
-                <h2>Welcome to Banana Intel! 🍌</h2>
-                <p>You have successfully subscribed to our intelligence feed.</p>
-                <p>Stay tuned for updates.</p>
-            </body>
-        </html>
-        """
-        
-        payload = {
-            "recipient": subscription.email,
-            "subject": "Welcome to Banana Intel",
-            "html": email_content,
-            "sender": "admin@imbanana.cc"
-        }
-        
-        headers = {
-            "X-API-Key": api_key,
-            "Content-Type": "application/json"
-        }
-
+        webhook_url = "https://neuralseas.malaysiawest.cloudapp.azure.com/webhook/b6a7bb37-de5c-46e0-8394-ad52f5d4f13f"
         async with httpx.AsyncClient() as client:
-            response = await client.post(billionmail_url, json=payload, headers=headers)
-            print(f"Billionmail Response: {response.status_code} - {response.text}")
-
+            await client.post(webhook_url, json={
+                "email": subscription.email,
+                "lead_magnets": subscription.lead_magnets,
+                "source": subscription.source,
+                "is_existing": False
+            })
     except Exception as e:
-        print(f"Failed to send email via Billionmail: {e}")
+        print(f"Failed to trigger n8n webhook: {e}")
 
     return {
         "success": True,
