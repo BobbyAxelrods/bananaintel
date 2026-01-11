@@ -104,6 +104,9 @@ const AdminDashboard = () => {
       ? `${API_BASE_URL}/api/intel/${editingId}`
       : `${API_BASE_URL}/api/intel`;
     
+    // Debug Alert
+    alert(`Attempting to save to: ${url}\nToken length: ${token ? token.length : 'None'}`);
+
     const method = isEditing ? 'PUT' : 'POST';
 
     try {
@@ -122,12 +125,11 @@ const AdminDashboard = () => {
         fetchItems();
         setTimeout(() => setSuccess(false), 3000);
       } else {
-        const errorData = await response.json().catch(() => ({}));
-        alert(`Failed to save: ${errorData.detail || response.statusText}`);
+        alert('Failed to save');
       }
     } catch (err) {
       console.error(err);
-      alert(`Error saving: ${err.message}`);
+      alert('Error saving');
     } finally {
       setLoading(false);
     }
