@@ -33,9 +33,6 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       ADMIN_CREATION_TOKEN: ${ADMIN_CREATION_TOKEN}
       TUNNEL_TOKEN: ${TUNNEL_TOKEN}
-      DOMAIN: https://imbanana.cc
-      MAIL_USERNAME: admin@imbanana.cc
-      MAIL_PASSWORD: ${MAIL_PASSWORD}
     depends_on:
       postgres:
         condition: service_healthy
