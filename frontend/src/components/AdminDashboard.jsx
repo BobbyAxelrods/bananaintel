@@ -27,7 +27,7 @@ const AdminDashboard = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/intel`);
+      const response = await fetch(`${API_BASE_URL}/api/intel/`);
       const data = await response.json();
       setItems(data);
     } catch (err) {
@@ -79,7 +79,7 @@ const AdminDashboard = () => {
     if (!window.confirm("Are you sure you want to delete this item?")) return;
     
     try {
-      const response = await fetch(`http://localhost:8000/api/intel/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/intel/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

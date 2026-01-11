@@ -41,24 +41,24 @@ const AdminSignupPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-              setStatus({ type: 'success', message: 'Admin account created successfully! Check email for verification.' });
-              setFormData({
-                  first_name: '',
-                  last_name: '',
-                  username: '',
-                  email: '',
-                  password: '',
-                  admin_token: ''
-              });
-            } else {
-              setStatus({ type: 'error', message: data.detail || 'Registration failed' });
-            }
-          } catch (error) {
-            setStatus({ type: 'error', message: `Network error: ${error.message}. Please try again.` });
-          } finally {
-            setLoading(false);
-          }
-        };
+        setStatus({ type: 'success', message: 'Admin account created successfully! Check email for verification.' });
+        setFormData({
+            first_name: '',
+            last_name: '',
+            username: '',
+            email: '',
+            password: '',
+            admin_token: ''
+        });
+      } else {
+        setStatus({ type: 'error', message: data.detail || 'Registration failed' });
+      }
+    } catch (error) {
+      setStatus({ type: 'error', message: 'Network error. Please try again.' });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-bg flex items-center justify-center p-4">

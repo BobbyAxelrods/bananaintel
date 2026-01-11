@@ -86,6 +86,7 @@ services:
       MONGO_DB_NAME: banana_intel
       DB_PASSWORD: ${DB_PASSWORD}
       SECRET_KEY: ${SECRET_KEY}
+      ADMIN_CREATION_TOKEN: ${ADMIN_CREATION_TOKEN}
     ports:
       - "8000:8000"
     volumes:
