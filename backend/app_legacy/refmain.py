@@ -105,7 +105,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     return username
 
 # --- Routes ---
-
+## Route User/Admin Login And Password Generation 
+## - Admin can create account with pre approved token only , if match then proceed 
 @app.post("/api/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     # Hardcoded admin for "me only" request

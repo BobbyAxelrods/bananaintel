@@ -14,12 +14,12 @@ const Login = ({ onLogin }) => {
     setError('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/login`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email: username, password }), // Changed username to email as per new backend
       });
 
       if (!response.ok) {
@@ -56,12 +56,13 @@ const Login = ({ onLogin }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-bold mb-1">Username</label>
+            <label className="block text-sm font-bold mb-1">Email</label>
             <input 
-              type="text" 
+              type="email" 
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full border-2 border-gray-200 p-2 rounded focus:border-black outline-none"
+              placeholder="admin@imbanana.cc"
             />
           </div>
           

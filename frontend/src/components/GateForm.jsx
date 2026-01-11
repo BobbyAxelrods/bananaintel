@@ -27,7 +27,7 @@ const GateForm = ({ onSuccess }) => {
     // Simulate API call
     // Change api url to real url 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/subscribe`, {
+      const response = await fetch(`${API_BASE_URL}/api/mail/subscribe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
