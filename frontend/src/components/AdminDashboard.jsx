@@ -122,11 +122,12 @@ const AdminDashboard = () => {
         fetchItems();
         setTimeout(() => setSuccess(false), 3000);
       } else {
-        alert('Failed to save');
+        const errorData = await response.json().catch(() => ({}));
+        alert(`Failed to save: ${errorData.detail || response.statusText}`);
       }
     } catch (err) {
       console.error(err);
-      alert('Error saving');
+      alert(`Error saving: ${err.message}`);
     } finally {
       setLoading(false);
     }
