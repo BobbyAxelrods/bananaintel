@@ -102,7 +102,7 @@ const AdminDashboard = () => {
 
     const url = isEditing 
       ? `${API_BASE_URL}/api/intel/${editingId}`
-      : `${API_BASE_URL}/api/intel`;
+      : `${API_BASE_URL}/api/intel/`;
     
     const method = isEditing ? 'PUT' : 'POST';
 
