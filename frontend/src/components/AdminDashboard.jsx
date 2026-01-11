@@ -104,9 +104,6 @@ const AdminDashboard = () => {
       ? `${API_BASE_URL}/api/intel/${editingId}`
       : `${API_BASE_URL}/api/intel`;
     
-    // Debug Alert
-    alert(`Attempting to save to: ${url}\nToken length: ${token ? token.length : 'None'}`);
-
     const method = isEditing ? 'PUT' : 'POST';
 
     try {
