@@ -40,6 +40,6 @@ def decode_token(token: str) -> dict:
             algorithms=[Config.ALGORITHM]
         )
         return token_data
-    except jwt.PyJWTError as e:
+    except jwt.JWTError as e:
         logging.exception(e)
         return None
